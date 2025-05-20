@@ -10,7 +10,7 @@ import Footer from '@/components/layout/Footer';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'AromaGenius - Discover Your Signature Scent',
+  title: 'The Scent - Discover Your Signature Scent',
   description: 'AI-Powered Aromatherapy E-commerce Platform',
 };
 
@@ -24,14 +24,14 @@ export default function RootLayout({
       <body className={`${GeistSans.variable} ${GeistMono.variable} font-sans antialiased`} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark" 
+          defaultTheme="light" 
           enableSystem
           disableTransitionOnChange
         >
           <AppContextProvider>
             <div className="flex flex-col min-h-screen">
               <Navbar />
-              <main className="flex-grow pt-16"> {/* pt-16 for fixed navbar height */}
+              <main className="flex-grow"> {/* Removed pt-16 as navbar is not fixed height anymore, or rather, its bg is distinct */}
                 {children}
               </main>
               <Footer />

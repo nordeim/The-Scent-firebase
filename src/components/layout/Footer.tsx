@@ -1,6 +1,6 @@
 
 import Link from 'next/link';
-import { Facebook, Instagram, Twitter, Sparkles } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Feather } from 'lucide-react'; // Changed Sparkles to Feather
 
 export default function Footer() {
   return (
@@ -9,8 +9,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div>
             <Link href="/" className="flex items-center space-x-2 mb-4">
-               <Sparkles className="h-7 w-7 text-primary-foreground_on_primary_bg dark:text-accent" />
-              <span className="text-xl font-bold">AromaGenius</span>
+               <Feather className="h-7 w-7 text-accent" /> {/* Changed icon */}
+              <span className="text-xl font-bold font-serif text-accent">The Scent</span> {/* Changed name and applied font */}
             </Link>
             <p className="text-sm text-muted-foreground">
               Premium AI-powered aromatherapy products for a more mindful life.
@@ -50,7 +50,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="border-t border-border/40 pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} AromaGenius. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} The Scent. All rights reserved.</p> {/* Changed name */}
         </div>
       </div>
     </footer>
