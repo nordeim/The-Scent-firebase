@@ -1,10 +1,11 @@
-
+// src/components/cart/CartSummary.tsx
 "use client";
 
 import type { CartItem } from '@/lib/types';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { ArrowRight, Tag } from 'lucide-react';
+import Link from 'next/link';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
 
@@ -18,11 +19,6 @@ export default function CartSummary({ items }: CartSummaryProps) {
   const taxRate = 0.08; // Example: 8% tax
   const tax = subtotal * taxRate;
   const total = subtotal + shipping + tax;
-
-  // In a real app, checkout would navigate to a checkout page or trigger a payment modal
-  const handleCheckout = () => {
-    alert('Proceeding to checkout (Not Implemented)');
-  };
 
   return (
     <div className="bg-card p-6 rounded-lg shadow-lg space-y-4 sticky top-24">
@@ -59,8 +55,10 @@ export default function CartSummary({ items }: CartSummaryProps) {
         <p className="text-xs text-muted-foreground flex items-center"><Tag className="w-3 h-3 mr-1"/> Have a gift card? Apply it at the payment step.</p>
       </div>
       
-      <Button size="lg" className="w-full group mt-4" onClick={handleCheckout}>
-        Proceed to Checkout <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+      <Button asChild size="lg" className="w-full group mt-4">
+        <Link href="/checkout">
+          Proceed to Checkout <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+        </Link>
       </Button>
     </div>
   );

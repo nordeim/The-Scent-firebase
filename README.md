@@ -1,4 +1,3 @@
-
 # AromaGenius E-Commerce Platform
 
 Welcome to AromaGenius, an AI-powered e-commerce platform specializing in premium aromatherapy products. This Next.js application is designed to provide users with a seamless and personalized shopping experience.
