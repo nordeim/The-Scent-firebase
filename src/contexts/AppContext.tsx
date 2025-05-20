@@ -1,4 +1,4 @@
-
+ts
 "use client";
 
 import type { ReactNode } from 'react';
@@ -64,6 +64,8 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       return { ...state, isOpen: false };
     case 'CLEAR_CART':
       return { ...state, items: [] };
+    case 'INITIALIZE_CART': // Added case for initialization
+      return { ...state, items: action.payload };
     default:
       return state;
   }
@@ -76,7 +78,7 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<Product[]>(MOCK_PRODUCTS);
   const [productState, productDispatch] = useReducer(productReducer, INITIAL_PRODUCT_STATE);
   const [cartState, cartDispatch] = useReducer(cartReducer, INITIAL_CART_STATE);
-  
+
   const [quizActive, setQuizActive] = useState(false);
   const [quizStep, setQuizStep] = useState(0);
   const [quizAnswers, setQuizAnswers] = useState<Record<string, string>>({});
@@ -88,7 +90,7 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const combinedDispatch = (action: AppAction) => {
     if (['SET_CATEGORY', 'SET_SORT', 'SET_FILTER', 'RESET_FILTERS'].includes(action.type)) {
       productDispatch(action as ProductAction);
-    } else if (['ADD_ITEM', 'REMOVE_ITEM', 'UPDATE_QUANTITY', 'TOGGLE_CART', 'CLOSE_CART', 'CLEAR_CART'].includes(action.type)) {
+    } else if (['ADD_ITEM', 'REMOVE_ITEM', 'UPDATE_QUANTITY', 'TOGGLE_CART', 'CLOSE_CART', 'CLEAR_CART', 'INITIALIZE_CART'].includes(action.type)) { // Added INITIALIZE_CART here
       cartDispatch(action as CartAction);
       if (action.type === 'ADD_ITEM') {
         toast({ title: "Added to Cart", description: `${(action as {payload: Product}).payload.name} has been added to your cart.` });
@@ -131,10 +133,10 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
                         // This is a simplified approach. A real app might use IDs or more complex matching.
                         const recommendedProductNames = aiResult.productRecommendations.map(name => name.toLowerCase());
                         const matchedProducts = MOCK_PRODUCTS.filter(p => recommendedProductNames.includes(p.name.toLowerCase()));
-                        
+
                         // If not enough direct matches, try category/scent family from quiz answers
                         if (matchedProducts.length < 2) {
-                            const backupMatches = MOCK_PRODUCTS.filter(p => 
+                            const backupMatches = MOCK_PRODUCTS.filter(p =>
                                 p.category.toLowerCase() === (quizAnswers.desiredEffect || "").toLowerCase() ||
                                 p.scentFamily.toLowerCase() === (quizAnswers.scentProfile || "").toLowerCase()
                             ).slice(0, 3); // Limit to 3 backup matches
@@ -174,14 +176,16 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const storedCartItems = localStorage.getItem('aromaGeniusCart');
     if (storedCartItems) {
-      const items = JSON.parse(storedCartItems);
-      // Dispatch an action to set initial cart items if needed, or directly set state
-      // For simplicity, this example assumes cartReducer can handle an init action or you directly set items
-      // This part of cart persistence would ideally be handled by dispatching an action like 'INITIALIZE_CART'
-      // For now, we'll skip direct dispatch to avoid complexity with initial state in reducer
-      // cartDispatch({ type: 'INITIALIZE_CART', payload: items }); 
+      try {
+        const items: CartItem[] = JSON.parse(storedCartItems);
+        // Dispatch an action to set initial cart items
+        cartDispatch({ type: 'INITIALIZE_CART', payload: items }); // Dispatch the new action
+      } catch (error) {
+        console.error("Failed to parse cart data from localStorage", error);
+        localStorage.removeItem('aromaGeniusCart'); // Clear corrupted data
+      }
     }
-  }, []);
+  }, []); // Empty dependency array means this runs once on mount
 
   // Save cart to localStorage whenever it changes
   useEffect(() => {

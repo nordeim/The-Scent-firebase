@@ -1,6 +1,5 @@
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Globe2, Leaf, FlaskConical, ShoppingCart } from "lucide-react"; // Updated icons
 import Image from "next/image";
 import Link from "next/link";
@@ -30,7 +29,7 @@ export default function FeaturesSection() {
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
           <div className="relative aspect-square md:aspect-[4/3] rounded-lg overflow-hidden shadow-xl">
             <Image
-              src="https://placehold.co/600x500"
+              src=\"https://source.unsplash.com/featured/?aromatherapy,products,ingredients\"
               alt="Aromatherapy products and natural ingredients"
               data-ai-hint="aromatherapy natural ingredients"
               fill

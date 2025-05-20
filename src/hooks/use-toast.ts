@@ -181,8 +181,8 @@ function useToast() {
       if (index > -1) {
         listeners.splice(index, 1)
       }
-    }
-  }, [state])
+    };
+  }, []); // FIX: Changed dependency from [state] to []
 
   return {
     ...state,

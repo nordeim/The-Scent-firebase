@@ -69,7 +69,8 @@ export type CartAction =
   | { type: 'UPDATE_QUANTITY'; payload: { id: number; quantity: number } }
   | { type: 'TOGGLE_CART' }
   | { type: 'CLOSE_CART' }
-  | { type: 'CLEAR_CART' };
+  | { type: 'CLEAR_CART' }
+  | { type: 'INITIALIZE_CART'; payload: CartItem[] };
 
 export type QuizAction =
   | { type: 'START_QUIZ' }

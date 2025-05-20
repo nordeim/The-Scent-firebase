@@ -11,7 +11,7 @@ export default function HeroSection() {
     <section className="relative min-h-[70vh] md:min-h-[calc(80vh-4rem)] flex items-center justify-center overflow-hidden py-16 md:py-24 bg-gray-700"> {/* Added bg-gray-700 for fallback */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="https://placehold.co/1920x1080" // Placeholder, actual image should be of blurred botanicals
+          src="https://source.unsplash.com/featured/?aromatherapy,botanicals,blurred" // Placeholder, actual image should be of blurred botanicals
           alt="Blurred aromatherapy background with herbs and flowers"
           data-ai-hint="blurred botanicals herbs"
           fill
@@ -29,7 +29,7 @@ export default function HeroSection() {
           The <span className="text-teal-300">Scent</span>
         </h1>
         <p className="text-lg sm:text-xl md:text-2xl text-stone-200 max-w-2xl mx-auto mb-10">
-          globally and formulated with passion.
+          Discover curated scents, crafted with natural ingredients and guided by AI to match your unique preferences.
         </p>
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
           <Button asChild size="lg" className="group shadow-lg hover:shadow-xl transition-shadow transform hover:scale-105 bg-primary text-primary-foreground hover:bg-primary/90 dark:hover:bg-primary/90 text-base px-10 py-6 rounded-full">
